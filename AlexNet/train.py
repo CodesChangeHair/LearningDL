@@ -135,7 +135,7 @@ for epoch in range(Epoch):
 print("Traing compeleted")
 
 # 保存模型
-save_path = "./AlexNet.pth"
-torch.save(net.state_dict(), save_path)
-print("Model saved")      
+# save_path = "./AlexNet.pth"
+# torch.save(net.state_dict(), save_path)
+# print("Model saved")      
         

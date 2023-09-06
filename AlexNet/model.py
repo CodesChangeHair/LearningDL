@@ -31,15 +31,16 @@ class AlexNet(nn.Module):
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2)  # (128, 6, 6)
         )
-        self.classifier = nn.Sequential(
-            nn.Dropout(p=0.5),  # p: probability of an element to be zeroed. Default: 0.5
+        if num_classes > 0:
+            self.classifier = nn.Sequential(
+            nn.Dropout(p=0.5, inplace=True),  # p: probability of an element to be zeroed. Default: 0.5
             nn.Linear(128 * 6 * 6, 2048),
             nn.ReLU(inplace=True),
             nn.Dropout(p=0.5),
             nn.Linear(2048, 2048),
             nn.ReLU(inplace=True),
             nn.Linear(2048, num_classes)
-        )
+            )
         if init_weight:
             self._initialize_weights()
         
@@ -64,6 +65,6 @@ class AlexNet(nn.Module):
 if __name__ == "__main__":
     # test model
     input = torch.rand((1, 3, 224, 224))
-    net = AlexNet(num_classes=5)
+    net = AlexNet(5)
     output = net(input)
     print(output.shape)
